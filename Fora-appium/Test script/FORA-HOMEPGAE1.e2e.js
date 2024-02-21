@@ -35,54 +35,50 @@ describe("fora-homepgae", () => {
     await continueBtn.click();
     await browser.pause(10000); // pause for 10 seconds
   });
-  // it("validate company information", async () => {
-  //   //text items
-  //   const companyInformation = await $(
-  //     "//div[@class='flex-1 bg-white rounded border border-stroke shadow-card p-6 md:p-8']"
-  //   );
-  //   const textsToCheck = [
-  //     "IATA#",
-  //     "33520476",
-  //     "MAILING ADDRESS",
-  //     "Fora Travel, Inc.",
-  //     "228 Park Ave South #53272",
-  //     "New York, NY 10003-1502",
-  //     "+1 844-409-FORA (3672)",
-  //     "TO GET PAID",
-  //     "Book through Portal or send",
-  //     "confirmations to",
-  //     "commissions@fora.travel for bookings made outside of Portal",
-  //   ];
-  //   for (const text of textsToCheck) {
-  //     const isTextPresent = await companyInformation
-  //       .$(`//*[contains(text(), '${text}')]`)
-  //       .isDisplayed();
-  //     if (isTextPresent) {
-  //       console.log(`"${text}" is present in company information`);
-  //     } else {
-  //       console.error(`"${text}" is not present in company information`);
-  //     }
-  //   }
-  // });
-  // it("validate copy buttons", async () => {
-  //   const companyInformation = await $("//div[contains(@class, 'grid gap-')]");
+  it("validate company information", async () => {
+    //text items
+    const companyInformation = await $(
+      "//div[@class='flex-1 bg-white rounded border border-stroke shadow-card p-6 md:p-8']"
+    );
+    const textsToCheck = [
+      "IATA#",
+      "33520476",
+      "MAILING ADDRESS",
+      "Fora Travel, Inc.",
+      "228 Park Ave South #53272",
+      "New York, NY 10003-1502",
+      "+1 844-409-FORA (3672)",
+      "TO GET PAID",
+      "Book through Portal or send",
+      "confirmations to",
+      "commissions@fora.travel for bookings made outside of Portal",
+    ];
+    for (const text of textsToCheck) {
+      const isTextPresent = await companyInformation
+        .$(`//*[contains(text(), '${text}')]`)
+        .isDisplayed();
+      if (isTextPresent) {
+        console.log(`"${text}" is present in company information`);
+      } else {
+        console.error(`"${text}" is not present in company information`);
+      }
+    }
+  });
+  it("validate copy buttons", async () => {
+    const companyInformation = await $("//div[contains(@class, 'grid gap-')]");
 
-  //   // Obtain all copy buttons within companyInformation
-  //   const copyButtons = await companyInformation.$$("button");
-  //   for (const button of copyButtons) {
-  //     // Use const button instead of buttons
-  //     await button.click(); // Use button instead of buttons
-  //   }
-  // });
-  //loogin
+    // Obtain all copy buttons within companyInformation
+    const copyButtons = await companyInformation.$$("button");
+    for (const button of copyButtons) {
+      // Use const button instead of buttons
+      await button.click(); // Use button instead of buttons
+    }
+  });
   it("Validate schedule advisor kickoff", async () => {
     browser.pause(5000);
 
-    const acceptButton = await $("#onetrust-accept-btn-handler");
 
-    // Click the "Accept all" button
-    await acceptButton.click();
-    const advisorKickoff = await $(
+        const advisorKickoff = await $(
       "//body/div[@id='__next']/div[@class='jsx-c8ce0ad902ae85f4 min-h-screen']/div[@id='main-container']/main[@class='jsx-c8ce0ad902ae85f4 flex-1']/div[@class='jsx-c8ce0ad902ae85f4 p-6 md:py-12 md:px-16']/div[@class='container-1440']/div[@class='max-w-']/div[@id='calendly-container']/div[1]"
     );
     if (advisorKickoff.isDisplayed()) {
