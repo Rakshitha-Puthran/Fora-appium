@@ -7,7 +7,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "wdio": "wdio run ./wdio.conf.js",
     "report": "npx allure generate allure-results --clean && npx allure open"
-
   },
   "keywords": [],
   "author": "",

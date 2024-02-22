@@ -71,7 +71,13 @@ describe("fora-homepgae", () => {
     const copyButtons = await companyInformation.$$("button");
     for (const button of copyButtons) {
       // Use const button instead of buttons
+      await expect(button).toBeDisplayed()
+
+
       await button.click(); // Use button instead of buttons
+     // await expect(browser).toHaveClipboardText('')
+
+
     }
   });
   it("Validate schedule advisor kickoff", async () => {
