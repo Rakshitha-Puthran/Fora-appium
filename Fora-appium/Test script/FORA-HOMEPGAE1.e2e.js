@@ -17,7 +17,7 @@ describe("fora-homepgae", () => {
     await signInButton.click();
     const emailinputField = await $("//input[@id='identifierId']");
     // Type text into the input field
-    await emailinputField.setValue("new.febtest@forastaging.net");
+    await emailinputField.setValue("qa.home@forastaging.net");
     emailinputField.sendKeyEvent(66);
 
     // Find the input field using the XPath expression

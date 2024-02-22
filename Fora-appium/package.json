@@ -5,13 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "wdio": "wdio run ./wdio.conf.js"
+    "wdio": "wdio run ./wdio.conf.js",
+    "report": "npx allure generate allure-results --clean && npx allure open"
+
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@wdio/cli": "^8.30.0",
+    "wdio-video-reporter": "^5.1.4",
     "webdriverio": "^8.30.0"
   },
   "devDependencies": {
@@ -23,6 +26,7 @@
     "@wdio/mocha-framework": "^8.30.0",
     "@wdio/selenium-standalone-service": "^8.15.0",
     "@wdio/spec-reporter": "^8.30.0",
+    "allure-commandline": "^2.27.0",
     "appium": "^2.5.0",
     "appium-uiautomator2-driver": "^2.44.0",
     "chromedriver": "^121.0.0",
