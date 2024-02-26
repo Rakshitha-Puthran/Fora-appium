@@ -15,7 +15,7 @@ describe("Validate homepage", () => {
     await signInButton.click();
     const emailinputField = await $("//input[@id='identifierId']");
     // Type text into the input field
-    await emailinputField.setValue("mqa.mqa020201@forastaging.net");
+    await emailinputField.setValue("automation1708673541367@forastaging.net");
     emailinputField.sendKeyEvent(66);
 
     // Find the input field using the XPath expression

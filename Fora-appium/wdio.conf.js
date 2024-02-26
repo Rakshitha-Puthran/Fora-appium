@@ -1,4 +1,6 @@
+
 exports.config = {
+  
   runner: "local",
   port: 4723,
   path: "/wd/hub",
@@ -14,7 +16,7 @@ exports.config = {
     {
       "appium:automationName": "UiAutomator2",
       platformName: "android",
-     "appium:deviceName": "vivo",
+      "appium:deviceName": "vivo",
       "appium:platformVersion": "13",
       "appium:udid": "10BDB92UT5000U8",
       "appium:ignoreHiddenApiPolicyError": "true",
