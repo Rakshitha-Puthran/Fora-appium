@@ -33,6 +33,35 @@ describe("Validate homepage", () => {
     await continueBtn.click();
     await browser.pause(10000); // pause for 10 seconds
   });
+  it("Learn fundamentals", async ()=>{
+    const LearnfundamentalsTitle= await $("//p[normalize-space()='Learn the fundamentals']")
+    await expect(LearnfundamentalsTitle).toHaveText("Learn the fundamentals")
+
+    const contents=await $$("//ul[@class='list-disc ml-4 md:ml-20 text-secondary']")
+    await expect(contents[0]).toHaveTextContaining([
+      "Ready to book? See “Jump right in to book” below",
+      "Feeling lost? Here are the essential materials to get started:",
+      'Watch "Welcome to Fora! Getting Started" (38 mins.) to understand what to expect on your Fora Advisor journey',
+      'Review "Need to know" (3 mins.) and the glossary of common acronyms',
+      "Follow our guided Certified"
+  ]);
+  const links= await contents[0].$$("a")
+  // Click all links in the learn fundamentals section
+  const linkTexts = ["getting-started",
+"training-need-to-know",
+"advisor-glossary",
+"training#getting-started"];
+
+  for (let i = 0; i < links.length; i++) {
+    const link = links[i];
+    const linkText = linkTexts[i];
+
+    await link.click();
+    await expect(browser).toHaveUrlContaining(linkText);
+
+    await browser.back(); // Go back to the previous page for the next iteration
+  }
+  })
   it("jump right into book", async () => {
     const expectedTexts = [
       "Add your first client (even add yourself!)",

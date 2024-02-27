@@ -5,8 +5,9 @@ exports.config = {
   port: 4723,
   path: "/wd/hub",
   specs: [
-    //"C:/Users/DCKLP-082/Fora-appium/Fora-appium/Test script/FORA-HOMEPGAE.e2e.js",
-    "C:/Users/DCKLP-082/Fora-appium/Fora-appium/Test script/FORA-HOMEPGAE1.e2e.js",
+   // "C:/Users/DCKLP-082/Fora-appium/Fora-appium/Test script/FORA-HOMEPGAE.e2e.js",
+    //"C:/Users/DCKLP-082/Fora-appium/Fora-appium/Test script/FORA-HOMEPGAE1.e2e.js",
+    "C:/Users/DCKLP-082/Fora-appium/Fora-appium/Test script/FORA-SCHDULE-ADVISORCALL.e2e.js"
     //"Fora-appium\Test script\FORA-Login.e2e.js",
     //"Fora-appium\Test script\FORA.e2e.js",
   ],
@@ -16,9 +17,15 @@ exports.config = {
     {
       "appium:automationName": "UiAutomator2",
       platformName: "android",
-      "appium:deviceName": "vivo",
+       "appium:deviceName": "vivo",
+     // "appium:deviceName": "Surya",
+     // "appium:platformVersion": "14",
+     // "appium:udid": "emulator-5554",
+
+
       "appium:platformVersion": "13",
-      "appium:udid": "10BDB92UT5000U8",
+
+       "appium:udid": "10BDB92UT5000U8",
       "appium:ignoreHiddenApiPolicyError": "true",
       browserName: "chrome",
       unhandledPromptBehavior: "dismiss",
