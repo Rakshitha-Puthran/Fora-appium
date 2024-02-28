@@ -1,13 +1,12 @@
 
 exports.config = {
-  
   runner: "local",
   port: 4723,
   path: "/wd/hub",
   specs: [
-   // "C:/Users/DCKLP-082/Fora-appium/Fora-appium/Test script/FORA-HOMEPGAE.e2e.js",
+    "C:/Users/DCKLP-082/Fora-appium/Fora-appium/Test script/FORA-HOMEPGAE.e2e.js",
     //"C:/Users/DCKLP-082/Fora-appium/Fora-appium/Test script/FORA-HOMEPGAE1.e2e.js",
-    "C:/Users/DCKLP-082/Fora-appium/Fora-appium/Test script/FORA-SCHDULE-ADVISORCALL.e2e.js"
+    //"C:/Users/DCKLP-082/Fora-appium/Fora-appium/Test script/FORA-SCHDULE-ADVISORCALL.e2e.js"
     //"Fora-appium\Test script\FORA-Login.e2e.js",
     //"Fora-appium\Test script\FORA.e2e.js",
   ],

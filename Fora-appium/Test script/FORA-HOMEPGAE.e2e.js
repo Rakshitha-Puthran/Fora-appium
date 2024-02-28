@@ -33,35 +33,68 @@ describe("Validate homepage", () => {
     await continueBtn.click();
     await browser.pause(10000); // pause for 10 seconds
   });
-  it("Learn fundamentals", async ()=>{
-    const LearnfundamentalsTitle= await $("//p[normalize-space()='Learn the fundamentals']")
-    await expect(LearnfundamentalsTitle).toHaveText("Learn the fundamentals")
+  it("engage with fora community", async () => {
+    const title = await $(
+      "//*[@class='flex items-center']/p[contains(@class, 'text-staticMobileTitle')]"
+    );
+    await expect(title[1]).toHaveText("Engage with Fora’s community");
+    const contents = await $$(
+      "//ul[@class='list-disc ml-4 md:ml-20 text-secondary']"
+    );
+    await expect(contents[1]).toHaveText([
+      "Schedule your Advisor Kickoff call!",
+      "After your Advisor Kickoff:",
+      "Only have time for one more live event? Sign up for Certified Office Hours (45 mins.) to ask our HQ team questions",
+      "Have a bit more time? Start joining Certified Labs (45 mins.) to develop your skills",
+      "Introduce yourself in Forum, your community platform and get help from other new Advisors in the Chat",
+      "Access your Fora Email on the left and watch this tutorial to set up your email signature",
+    ]);
+    const links = await contents[1].$$("a");
+    for (let i = 0; i < links.length; i++) {
+      const link = links[i];
+      //const linkText = linkTexts[i];
 
-    const contents=await $$("//ul[@class='list-disc ml-4 md:ml-20 text-secondary']")
+      await link.click();
+      //await expect(browser).toHaveUrlContaining(linkText);
+
+      await browser.back(); // Go back to the previous page for the next iteration
+    }
+  });
+  it("Learn fundamentals", async () => {
+    const LearnfundamentalsTitle = await $(
+      "//p[normalize-space()='Learn the fundamentals']"
+    );
+    await expect(LearnfundamentalsTitle).toHaveText("Learn the fundamentals");
+
+    const contents = await $$(
+      "//ul[@class='list-disc ml-4 md:ml-20 text-secondary']"
+    );
     await expect(contents[0]).toHaveTextContaining([
       "Ready to book? See “Jump right in to book” below",
       "Feeling lost? Here are the essential materials to get started:",
       'Watch "Welcome to Fora! Getting Started" (38 mins.) to understand what to expect on your Fora Advisor journey',
       'Review "Need to know" (3 mins.) and the glossary of common acronyms',
-      "Follow our guided Certified"
-  ]);
-  const links= await contents[0].$$("a")
-  // Click all links in the learn fundamentals section
-  const linkTexts = ["getting-started",
-"training-need-to-know",
-"advisor-glossary",
-"training#getting-started"];
+      "Follow our guided Certified",
+    ]);
+    const links = await contents[0].$$("a");
+    // Click all links in the learn fundamentals section
+    const linkTexts = [
+      "getting-started",
+      "training-need-to-know",
+      "advisor-glossary",
+      "training#getting-started",
+    ];
 
-  for (let i = 0; i < links.length; i++) {
-    const link = links[i];
-    const linkText = linkTexts[i];
+    for (let i = 0; i < links.length; i++) {
+      const link = links[i];
+      const linkText = linkTexts[i];
 
-    await link.click();
-    await expect(browser).toHaveUrlContaining(linkText);
+      await link.click();
+      await expect(browser).toHaveUrlContaining(linkText);
 
-    await browser.back(); // Go back to the previous page for the next iteration
-  }
-  })
+      await browser.back(); // Go back to the previous page for the next iteration
+    }
+  });
   it("jump right into book", async () => {
     const expectedTexts = [
       "Add your first client (even add yourself!)",
