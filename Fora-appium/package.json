@@ -13,6 +13,9 @@
   "license": "ISC",
   "dependencies": {
     "@wdio/cli": "^8.30.0",
+    "appium-chromedriver": "^5.6.35",
+    "appium-uiautomator2-driver": "^3.0.1",
+    "geckodriver": "^4.3.3",
     "wdio-video-reporter": "^5.1.4",
     "webdriverio": "^8.30.0"
   },
@@ -27,8 +30,9 @@
     "@wdio/spec-reporter": "^8.30.0",
     "allure-commandline": "^2.27.0",
     "appium": "^2.5.0",
-    "appium-uiautomator2-driver": "^2.44.0",
-    "chromedriver": "^121.0.0",
-    "ts-node": "^10.9.2"
+    "chromedriver": "^122.0.4",
+    "ts-node": "^10.9.2",
+    "wdio-chromedriver-service": "^8.1.1",
+    "wdio-geckodriver-service": "^5.0.2"
   }
 }

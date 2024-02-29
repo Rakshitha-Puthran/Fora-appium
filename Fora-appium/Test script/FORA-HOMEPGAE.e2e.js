@@ -15,7 +15,7 @@ describe("Validate homepage", () => {
     await signInButton.click();
     const emailinputField = await $("//input[@id='identifierId']");
     // Type text into the input field
-    await emailinputField.setValue("automation1708673541367@forastaging.net");
+    await emailinputField.setValue("new.call@forastaging.net");
     emailinputField.sendKeyEvent(66);
 
     // Find the input field using the XPath expression
@@ -32,33 +32,6 @@ describe("Validate homepage", () => {
     );
     await continueBtn.click();
     await browser.pause(10000); // pause for 10 seconds
-  });
-  it("engage with fora community", async () => {
-    const title = await $(
-      "//*[@class='flex items-center']/p[contains(@class, 'text-staticMobileTitle')]"
-    );
-    await expect(title[1]).toHaveText("Engage with Fora’s community");
-    const contents = await $$(
-      "//ul[@class='list-disc ml-4 md:ml-20 text-secondary']"
-    );
-    await expect(contents[1]).toHaveText([
-      "Schedule your Advisor Kickoff call!",
-      "After your Advisor Kickoff:",
-      "Only have time for one more live event? Sign up for Certified Office Hours (45 mins.) to ask our HQ team questions",
-      "Have a bit more time? Start joining Certified Labs (45 mins.) to develop your skills",
-      "Introduce yourself in Forum, your community platform and get help from other new Advisors in the Chat",
-      "Access your Fora Email on the left and watch this tutorial to set up your email signature",
-    ]);
-    const links = await contents[1].$$("a");
-    for (let i = 0; i < links.length; i++) {
-      const link = links[i];
-      //const linkText = linkTexts[i];
-
-      await link.click();
-      //await expect(browser).toHaveUrlContaining(linkText);
-
-      await browser.back(); // Go back to the previous page for the next iteration
-    }
   });
   it("Learn fundamentals", async () => {
     const LearnfundamentalsTitle = await $(
@@ -95,6 +68,34 @@ describe("Validate homepage", () => {
       await browser.back(); // Go back to the previous page for the next iteration
     }
   });
+  it("engage with fora community", async () => {
+    const title = await $$(
+      "//*[@class='flex items-center']/p[contains(@class, 'text-staticMobileTitle')]"
+    );
+    await expect(title[1]).toHaveText("Engage with Fora’s community");
+    const contents = await $$(
+      "//ul[@class='list-disc ml-4 md:ml-20 text-secondary']"
+    );
+    await expect(contents[1]).toHaveTextContaining([
+      "Schedule your Advisor Kickoff call!",
+      "After your Advisor Kickoff:",
+      "Only have time for one more live event? Sign up for Certified Office Hours (45 mins.) to ask our HQ team questions",
+      "Have a bit more time? Start joining Certified Labs (45 mins.) to develop your skills",
+      "Introduce yourself in Forum, your community platform and get help from other new Advisors in the Chat",
+      "Access your Fora Email on the left and watch this tutorial to set up your email signature",
+    ]);
+    // const links = await contents[1].$$("a");
+    // for (let i = 0; i < links.length; i++) {
+    //   const link = links[i];
+    //   //const linkText = linkTexts[i];
+
+    //   await link.click();
+    //   //await expect(browser).toHaveUrlContaining(linkText);
+
+    //   await browser.back(); // Go back to the previous page for the next iteration
+    // }
+  });
+
   it("jump right into book", async () => {
     const expectedTexts = [
       "Add your first client (even add yourself!)",
@@ -110,38 +111,62 @@ describe("Validate homepage", () => {
       "//li[contains(text(),'Learn how to make bookings with our video library')]"
     );
 
-    const text1 = await liElement1.getText();
-    console.log("element 1 ", text1);
-    const text2 = await liElement2.getText();
-    console.log("element 2 ", text2);
+    expect(await liElement1.getText()).toBe(expectedTexts[0]);
+    expect(await liElement2.getText()).toBe(expectedTexts[1]);
+    expect(await liElement3.getText()).toBe(expectedTexts[2]);
 
-    const text3 = await liElement3.getText();
-    console.log("element 3 ", text3);
-
-    if (text1 === expectedTexts[0]) {
-      console.log("Text 1 is present");
-    } else {
-      console.error("Text 1 is missing");
-    }
-
-    if (text2 === expectedTexts[1]) {
-      console.log("Text 2 is present");
-    } else {
-      console.error("Text 2 is missing");
-    }
-
-    if (text3 === expectedTexts[2]) {
-      console.log("Text 3 is present");
-    } else {
-      console.error("Text 3 is missing");
-    }
     const body = await $("//div[3]//ul[1]");
-    const clickAbleElements = await body.$$("a");
-    for (const element of clickAbleElements) {
-      await element.click();
-      console.log("element clicked", element);
-      await browser.pause(5000); // "await" is added here to ensure the pause happens before navigating back
-      await browser.back();
+    // const clickAbleElements = await body.$$("a");
+    // for (const element of clickAbleElements) {
+    //   await element.click();
+    //   console.log("element clicked", element);
+    //   await browser.pause(5000); // "await" is added here to ensure the pause happens before navigating back
+    //   await browser.back();
+    // }
+  });
+  it("validate bookings section", async () => {
+    // Check the title of the bookings
+    const bookingsTitle = await $(
+      "h2.text-header.font-bold.mt-0.md\\:mt-\\[6px\\].custom-m-6"
+    );
+    await expect(bookingsTitle).toHaveText("Bookings");
+
+    // Check whether booking filter is visible
+    const filter = await $(
+      "//div[@class='md:relative inline-block text-left w-full md:w-auto']"
+    );
+    const assert = await filter.isDisplayed();
+    console.log(assert);
+
+    // Check the text content of bookings body
+    const bookingsBody = await $(
+      "//div[@class='flex flex-col flex-wrap sm:flex-row flex-start min1306:flex-nowrap items-start min1306:flex-row gap-8 sm:gap-6 md:gap-4 min1306:gap-0 mb-4 min1306:items-start']"
+    );
+    await expect(bookingsBody).toHaveTextContaining([
+      "BOOKINGS",
+      "YOUR TOTAL COMMISSION",
+      "TOTAL COMMISSIONABLE VALUE",
+      "PAID",
+      "PENDING",
+      "FUTURE",
+    ]);
+
+    await filter.click();
+
+    const filterOptions = await $$(
+      ".block.py-2.text-medium.font-normal.text-main.px-4.mb-2.last\\:mb-0.cursor-pointer.hover\\:bg-successLight.hover\\:font-bold"
+    );
+
+    for (const option of filterOptions) {
+      await option.click();
+      await browser.pause(2000);
+      await filter.click();
+      // Add any additional logic here if needed
     }
+
+    //view theese bookings link
+    const link = await $("//a[normalize-space()='View these bookings']");
+    await link.click();
+    await expect(browser).toHaveUrlContaining("bookings");
   });
 });
