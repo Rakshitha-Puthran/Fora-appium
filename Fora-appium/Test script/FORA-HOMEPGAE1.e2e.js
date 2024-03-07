@@ -36,7 +36,6 @@ describe("fora-homepgae", () => {
     await browser.pause(10000); // pause for 10 seconds
   });
 
-
   it("validate company information", async () => {
     //text items
     const companyInformation = await $(
@@ -67,34 +66,39 @@ describe("fora-homepgae", () => {
     }
   });
   it("validate copy buttons", async () => {
-   const copyButton1= await $("//button[@data-tooltip-id='IATA']//*[name()='svg']")
-   await copyButton1.isDisplayed()
-   await copyButton1.click()
-   await browser.pause(5000)
-   await expect(browser).toHaveClipboardText('33520476')
+    const copyButton1 = await $(
+      "//button[@data-tooltip-id='IATA']//*[name()='svg']"
+    );
+    await copyButton1.isDisplayed();
+    await copyButton1.click();
+    await browser.pause(5000);
+    await expect(browser).toHaveClipboardText("33520476");
 
-  //  const copyButton2= await $("//button[@data-tooltip-id='Mailing Address']//*[name()='svg']")
-  //  await copyButton2.isDisplayed()
-  //  await copyButton2.click()
-  //  await browser.pause(5000)
-  //  const receivedText = await browser.getClipboard();
-  //  //const receivedArray = receivedText.split('\n').map(text => text.trim());
-   
-  //  const expectedArray = ["Fora Travel, Inc. 228 Park Ave South #53272 New York, NY 10003-1502"];
-   
-  //  await expect(receivedText).toEqual(expectedArray);
-     
-   const copyButton3= await $("//button[@data-tooltip-id='Phone Number']//*[name()='svg']")
-   await copyButton3.isDisplayed()
-   await copyButton3.click()
-   await browser.pause(5000)
-   await expect(browser).toHaveClipboardText('+1 844-409-3672')
+    //  const copyButton2= await $("//button[@data-tooltip-id='Mailing Address']//*[name()='svg']")
+    //  await copyButton2.isDisplayed()
+    //  await copyButton2.click()
+    //  await browser.pause(5000)
+    //  const receivedText = await browser.getClipboard();
+    //  //const receivedArray = receivedText.split('\n').map(text => text.trim());
 
-   const copyButton4= await $("//button[@data-tooltip-id='Commission Email']//*[name()='svg']")
-   await copyButton4.isDisplayed()
-   await copyButton4.click()
-   await browser.pause(5000)
-   await expect(browser).toHaveClipboardText('commissions@fora.travel')
+    //  const expectedArray = ["Fora Travel, Inc. 228 Park Ave South #53272 New York, NY 10003-1502"];
+
+    //  await expect(receivedText).toEqual(expectedArray);
+
+    const copyButton3 = await $(
+      "//button[@data-tooltip-id='Phone Number']//*[name()='svg']"
+    );
+    await copyButton3.isDisplayed();
+    await copyButton3.click();
+    await browser.pause(5000);
+    await expect(browser).toHaveClipboardText("+1 844-409-3672");
+
+    const copyButton4 = await $(
+      "//button[@data-tooltip-id='Commission Email']//*[name()='svg']"
+    );
+    await copyButton4.isDisplayed();
+    await copyButton4.click();
+    await browser.pause(5000);
+    await expect(browser).toHaveClipboardText("commissions@fora.travel");
   });
-  
 });
