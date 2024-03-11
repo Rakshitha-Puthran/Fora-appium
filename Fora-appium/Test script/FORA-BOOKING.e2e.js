@@ -1,6 +1,3 @@
-const { expect, browser, $ } = require("@wdio/globals");
-const assert = require("assert");
-
 describe("fora", () => {
   it(" Advisor_Bookings_TC001", async () => {
     console.log(" Bookings - To Check the Bookings section");

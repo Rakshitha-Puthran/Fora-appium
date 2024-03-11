@@ -53,7 +53,7 @@ describe("Fora advisor portal", () => {
     //this condition staisfies only when no cliennts are added are the client is not altered
     expect(clientName).toContain("Testing Software Appium");
   });
-  it.skip("clients page Advisor_Clients_TC002", async () => {
+  it("clients page Advisor_Clients_TC002", async () => {
     //CHECK ADDRESS SECTION IN CLIENT CARD
     const Address = await $(
       "span[class='block text-medium font-bold text-secondary']"
@@ -129,7 +129,7 @@ describe("Fora advisor portal", () => {
       await creditCard.isDisplayed();
     }
   });
-  it.skip("clients page Advisor_Clients_TC003", async () => {
+  it("clients page Advisor_Clients_TC003", async () => {
     const ViewClientsLink = await $(
       "p[class='text-medium font-bold text-link hover:underline']"
     );
@@ -170,7 +170,7 @@ describe("Fora advisor portal", () => {
       "Address",
     ]);
   });
-  it.skip("Advisor_Clients_TC005", async () => {
+  it("Advisor_Clients_TC005", async () => {
     //check booking details
     const bookingDetails = await $(
       "div[class='flex xl:hidden p-4 rounded bg-primaryBg justify-between flex-wrap gap-4']"
@@ -257,6 +257,103 @@ describe("Fora advisor portal", () => {
     const boldicon = await $("button[class='ql-bold']");
     const italyIcon = await $("//button[@class='ql-italic']");
     const Underline = await $("//button[@class='ql-underline']");
-    const strike = await $("//button[@class='ql-strike']");
+    const strike = await $("//button[@class='ql-blockquote']");
+    const Numberlist = await $("button[value='ordered']");
+    const bulletList = await $("//button[@value='bullet']");
+    const leftAlign = await $("button[value='-1']");
+    const rightalign = await $("button[value='+1']");
+    const addlink = await $("button[class='ql-link']");
+    const imageUpload = await $("button[class='ql-image']");
+
+    await boldicon.isDisplayed();
+    await italyIcon.isDisplayed();
+    await Underline.isDisplayed();
+    await strike.isDisplayed();
+    await Numberlist.isDisplayed();
+    await bulletList.isDisplayed();
+    await leftAlign.isDisplayed();
+    await rightalign.isDisplayed();
+    await addlink.isDisplayed();
+    await imageUpload.isDisplayed();
+  });
+  it("Advisor_Clients_TC009", async () => {
+    const LoyaltyPrpgramsEdit = await $(
+      "span[class='text-medium font-bold cursor-pointer text-link hover:underline']"
+    );
+    const placeholder = await $("div[class='p-6 space-y-2'] div:nth-child(1)");
+    await LoyaltyPrpgramsEdit.isDisplayed();
+    await placeholder.isDisplayed();
+
+    await LoyaltyPrpgramsEdit.click();
+
+    const cancelButton = await $(
+      "body > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > main:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > span:nth-child(1)"
+    );
+
+    await cancelButton.isDisplayed();
+
+    const saveButton = await $("#agree");
+    await saveButton.isDisplayed();
+
+    const LoyaltyProgramForm = await $("form[action='#']");
+    await LoyaltyProgramForm.isDisplayed();
+
+    const selectProgramDropdown = await $(
+      "//input[@id='headlessui-combobox-input-:rd:']"
+    );
+    await selectProgramDropdown.isDisplayed();
+    await browser.scroll(0, 200);
+
+    const dropdownsvg = await $(
+      "//button[@id='headlessui-combobox-button-:r5:']"
+    );
+    await dropdownsvg.click();
+
+    const dropdownList = await $(
+      "//ul[@id='headlessui-combobox-options-:r6:']"
+    );
+    await dropdownList.isDisplayed();
+
+    const listelements = await dropdownList.$$("li");
+    // Choose a random index to click (You can generate this randomly or choose based on some criteria)
+    const randomIndex = Math.floor(Math.random() * listelements.length);
+    console.log("rand", randomIndex);
+    // Click on the randomly selected <li> element
+    await listelements[5].click();
+
+    const EnterNumber = await $("input[placeholder='Enter number']");
+    await EnterNumber.setValue("somethinng");
+    await browser.keys(["Enter"]);
+    const some = await $(".mb-2.flex.items-center.justify-between");
+    await some.click();
+    await browser.pause(5000);
+
+    await browser.scroll(0, 200);
+
+    // Find the button element
+    const addButton = await $(
+      "//button[normalize-space()='Add another program']"
+    );
+    await addButton.waitForExist();
+    const { sx, sy } = await addButton.getLocation(); // Get the location of the button
+    // Perform the click action at the specified coordinates
+    await addButton.doubleClick();
+    await browser.pause(30000);
+    const removebtn = await $$('span[data-testid="removeButton"]');
+
+    await removebtn[1].isDisplayed();
+    await removebtn[1].click();
+    // Check if the element exists based on the given XPath selector
+    const elementExists = await $(
+      `//div[@class='bg-white border border-lightGreyBorder rounded-lg']//div[4]`
+    ).isExisting();
+
+    // Check the result and log a message accordingly
+    if (!elementExists) {
+      console.log("The element does not exist.");
+    } else {
+      console.error("The element exists.");
+    }
+    await saveButton.click();
   });
 });
