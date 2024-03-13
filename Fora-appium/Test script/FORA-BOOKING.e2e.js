@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+const { expect, browser, $ } = require("@wdio/globals");
+const assert = require('assert');
+
+>>>>>>> 7a16159b0f2a0acf63adc0f522f79ec5d52766e3
 describe("fora", () => {
   it(" Advisor_Bookings_TC001", async () => {
     console.log(" Bookings - To Check the Bookings section");
@@ -87,50 +93,41 @@ describe("fora", () => {
       throw new Error("browse not displayed");
     }
 
-    //report an issue
-    console.log("report an issue");
-    const reportissue = await $(
-      '//*[@id="main-container"]/main/div/div[2]/div[2]'
-    );
-    if (!reportissue.isDisplayed()) {
-      throw new Error("report an issue not displayed");
-    }
-  });
+   //report an issue
+   console.log("report an issue");
+   const reportissue = await $("//*[@id=\"main-container\"]/main/div/div[2]/div[2]")
+   if(!reportissue.isDisplayed()) {
+   throw new Error("report an issue not displayed");
+   }
+  
+})
 
-  it(" Advisor_Bookings_TC002", async () => {
+it(" Advisor_Bookings_TC002", async () => {
     //search with invalid
-    const search = await $(
-      '//*[@id="main-container"]/main/div/div[1]/div[2]/div/div/div/div/div/div/div[1]/div[1]/div[1]/div/label/input'
-    );
-    await search.setValue("test");
+    const search = await $("//*[@id=\"main-container\"]/main/div/div[1]/div[2]/div/div/div/div/div/div/div[1]/div[1]/div[1]/div/label/input")
+    await search.setValue("test")
     //no result found
-    console.log("no result found");
-    await browser.pause(10000);
-    const noresult = await $(
-      '//*[@id="main-container"]/main/div/div[1]/div[2]/div/div/div/div/div/div/div[3]/div/div/p'
-    );
-    if (!noresult.isDisplayed()) {
-      throw new Error("no result found not displayed");
-    }
+   console.log("no result found");
+   await browser.pause(10000)
+   const noresult = await $("//*[@id=\"main-container\"]/main/div/div[1]/div[2]/div/div/div/div/div/div/div[3]/div/div/p")
+   if(!noresult.isDisplayed()) {
+   throw new Error("no result found not displayed");
+   }
 
-    //validate close icon in search bar
-    const close = await $(
-      '//*[@id="main-container"]/main/div/div[1]/div[2]/div/div/div/div/div/div/div[1]/div[1]/div[1]/div/label/div'
-    );
-    await close.click();
-    await browser.pause(5000);
-    //const make_first = await $("//*[@id=\"main-container\"]/main/div/div[1]/div[2]/div/div/div/div/div/div/div[3]/div/div/div/div/h4")
-    //if(!make_first.isDisplayed()) {
-    // throw new Error("make first not displayed");
-    // }
-  });
+   //validate close icon in search bar
+   const close = await $("//*[@id=\"main-container\"]/main/div/div[1]/div[2]/div/div/div/div/div/div/div[1]/div[1]/div[1]/div/label/div")
+   await close.click()
+   await browser.pause(5000)
+   //const make_first = await $("//*[@id=\"main-container\"]/main/div/div[1]/div[2]/div/div/div/div/div/div/div[3]/div/div/div/div/h4")
+   //if(!make_first.isDisplayed()) {
+   // throw new Error("make first not displayed");
+   // }
+})
 
-  it(" Advisor_Bookings_TC003", async () => {
+it(" Advisor_Bookings_TC003", async () => {
     //search by name
-    console.log(
-      "TC03....................................................................................."
-    );
-    await browser.pause(5000);
+    console.log("TC03.....................................................................................");
+    await browser.pause(5000)
     //fetch total bookings
     const tb = await $("//div[@class='text-header md:text-title font-bold']");
     const Get_booking = tb.getText();
@@ -145,68 +142,52 @@ describe("fora", () => {
     const tb1 = await $("//div[@class='text-header md:text-title font-bold']");
     const Get_booking1 = tb1.getText();
     const searchReslt_fora = await Get_booking1;
-    const expectedResult = "1";
-    assert.strictEqual(searchReslt_fora, expectedResult, `search failed"`);
-  });
-  it(" Advisor_Bookings_TC004", async () => {
-    //search by confirmation number
-    console.log("TC04............");
-    await browser.pause(5000);
-    const search = await $(
-      '//*[@id="main-container"]/main/div/div[1]/div[2]/div/div/div/div/div/div/div[1]/div[1]/div[1]/div/label/input'
-    );
-    await search.setValue("Anonymous_02864d1a");
-    await browser.pause(2000);
-    const tb1 = await $("//div[@class='text-header md:text-title font-bold']");
-    const Get_booking1 = tb1.getText();
-    const search_confirmation = await Get_booking1;
-    const expectedResult1 = "1";
+    const expectedResult = '1';
+    assert.strictEqual(searchReslt_fora, expectedResult, `search failed"`);   
+})
+it(" Advisor_Bookings_TC004", async () => {
+   //search by confirmation number
+  console.log("TC04............");
+  await browser.pause(5000)
+  const search = await $("//*[@id=\"main-container\"]/main/div/div[1]/div[2]/div/div/div/div/div/div/div[1]/div[1]/div[1]/div/label/input")
+  await search.setValue("Anonymous_02864d1a")
+  await browser.pause(2000)
+  const tb1 = await $("//div[@class='text-header md:text-title font-bold']")
+  const Get_booking1 = tb1.getText();
+  const search_confirmation = await Get_booking1;
+  const expectedResult1 = '1';
 
-    const tb2 = await $(
-      '//*[@id="main-container"]/main/div/div[1]/div[2]/div/div/div/div/div/div/div[2]/div/div/div[2]/p[2]'
-    );
-    const Get_booking2 = tb1.getText();
-    const search_confirmation2 = await Get_booking2;
-    const expectedResult2 = "$1,330";
+  const tb2 = await $("//*[@id=\"main-container\"]/main/div/div[1]/div[2]/div/div/div/div/div/div/div[2]/div/div/div[2]/p[2]")
+  const Get_booking2 = tb1.getText();
+  const search_confirmation2 = await Get_booking2;
+  const expectedResult2 = '$1,330';
 
-    assert.strictEqual(
-      search_confirmation2,
-      expectedResult2,
-      `search failed : price did not match"`
-    );
-  });
+  assert.strictEqual(search_confirmation2, expectedResult2, `search failed : price did not match"`);   
+})
 
-  it(" Advisor_Bookings_TC005", async () => {
-    //search by date
-    const search = await $(
-      '//*[@id="main-container"]/main/div/div[1]/div[2]/div/div/div/div/div/div/div[1]/div[1]/div[1]/div/label/input'
-    );
-    await search.setValue("01/01/2024");
-    //no result found
-    console.log("no result found");
-    await browser.pause(10000);
-    const noresult = await $(
-      '//*[@id="main-container"]/main/div/div[1]/div[2]/div/div/div/div/div/div/div[3]/div/div/p'
-    );
-    if (!noresult.isDisplayed()) {
-      throw new Error("no result found not displayed");
-    }
-  });
+it(" Advisor_Bookings_TC005", async () => {
+  //search by date
+  const search = await $("//*[@id=\"main-container\"]/main/div/div[1]/div[2]/div/div/div/div/div/div/div[1]/div[1]/div[1]/div/label/input")
+  await search.setValue("01/01/2024")
+  //no result found
+ console.log("no result found");
+ await browser.pause(10000)
+ const noresult = await $("//*[@id=\"main-container\"]/main/div/div[1]/div[2]/div/div/div/div/div/div/div[3]/div/div/p")
+ if(!noresult.isDisplayed()) {
+ throw new Error("no result found not displayed");
+ }
+})
 
-  it(" Advisor_Bookings_TC006", async () => {
-    //search by booking status
-    const search = await $(
-      '//*[@id="main-container"]/main/div/div[1]/div[2]/div/div/div/div/div/div/div[1]/div[1]/div[1]/div/label/input'
-    );
-    await search.setValue("Booked");
-    //no result found
-    console.log("no result found");
-    await browser.pause(10000);
-    const noresult = await $(
-      '//*[@id="main-container"]/main/div/div[1]/div[2]/div/div/div/div/div/div/div[3]/div/div/p'
-    );
-    if (!noresult.isDisplayed()) {
-      throw new Error("no result found not displayed");
-    }
-  });
-});
+it(" Advisor_Bookings_TC006", async () => {
+  //search by booking status
+  const search = await $("//*[@id=\"main-container\"]/main/div/div[1]/div[2]/div/div/div/div/div/div/div[1]/div[1]/div[1]/div/label/input")
+  await search.setValue("Booked")
+  //no result found
+ console.log("no result found");
+ await browser.pause(10000)
+ const noresult = await $("//*[@id=\"main-container\"]/main/div/div[1]/div[2]/div/div/div/div/div/div/div[3]/div/div/p")
+ if(!noresult.isDisplayed()) {
+ throw new Error("no result found not displayed");
+ }
+})
+
