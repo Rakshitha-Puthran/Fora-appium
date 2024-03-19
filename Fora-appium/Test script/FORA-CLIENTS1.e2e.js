@@ -15,7 +15,7 @@ describe("fora-appium", () => {
     await signInButton.click();
     const emailinputField = await $("//input[@id='identifierId']");
     // Type text into the input field
-    await emailinputField.setValue("new.call@forastaging.net");
+    await emailinputField.setValue("mqa.mqa020201@forastaging.net");
     emailinputField.sendKeyEvent(66);
     await browser.pause(10000); // pause for 10 seconds
 
