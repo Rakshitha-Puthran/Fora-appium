@@ -15,7 +15,7 @@ describe("fora-appium", () => {
     await signInButton.click();
     const emailinputField = await $("//input[@id='identifierId']");
     // Type text into the input field
-    await emailinputField.setValue("mqa.mqa020201@forastaging.net");
+    await emailinputField.setValue("regression.test22@forastaging.net");
     emailinputField.sendKeyEvent(66);
     await browser.pause(10000); // pause for 10 seconds
 
@@ -55,11 +55,7 @@ describe("fora-appium", () => {
       "//a[@class='inline-flex items-center gap-1 text-medium font-bold cursor-pointer text-link hover:underline']"
     );
     await goBackBtn.isDisplayed();
-    //check whether the name section displayed
-    const nameSection = await $(
-      "//body[1]/div[1]/div[2]/div[1]/main[1]/div[1]/div[1]/div[3]/div[1]/form[1]/div[1]/div[2]"
-    );
-    await nameSection.isDisplayed();
+
     //check the available name fields
     const childElements = await $$(".flex.flex-col.gap-6");
     const labels = await childElements[0].$$("label");
@@ -86,13 +82,14 @@ describe("fora-appium", () => {
     const prefix = await $('[data-testid="dropdownButton"]');
     await prefix.isDisplayed();
     await prefix.click();
+    await browser.pause(5000);
 
     const prefixOptions = await $(
-      "body > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > main:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2)"
+      "body > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > main:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1)"
     );
     const expectedOptions = "Select\nMrs\nMiss\nMs\nMr\nDr";
 
-    const con = await expect(prefixOptions).toHaveText(expectedOptions);
+    await expect(prefixOptions).toHaveText(expectedOptions);
 
     const prefixMrOption = await $("//div[@id='prefix-option-4']");
     await prefixMrOption.click();
@@ -117,7 +114,8 @@ describe("fora-appium", () => {
     const firstName = await $("//input[@id='firstName']");
     await firstName.setValue("something");
     //check validation message after entering values
-    //await expect(firstNameValidation.isDisplayed()).toBe(false);
+    await firstNameValidation.waitForDisplayed({ reverse: true });
+
     //check middle name section
     const middleName = await $("//input[@id='middleName']");
     const middleNamePlaceholder = await middleName.getAttribute("placeholder");
@@ -139,6 +137,7 @@ describe("fora-appium", () => {
     );
     await expect(lastNameValidation).toHaveText("Last name is required");
     await LastName.setValue("client");
+    await lastNameValidation.waitForDisplayed({ reverse: true });
 
     //check suffix field
     const SuffixField = await $("//input[@id='suffix']");
@@ -152,13 +151,13 @@ describe("fora-appium", () => {
     await prefferedNames.setValue("appium testing");
     const something2 = await $("//label[normalize-space()='Pronouns']");
     await something2.click();
-    await browser.scroll(0, 200);
 
     //check pronouns field
     const pronouns = await $$("button[data-testid='dropdownButton']");
     await pronouns[1].click();
+    await browser.pause(5000);
     const pronounsOption = await $$(
-      "//div[@id='headlessui-popover-panel-:rb:']"
+      "//*[contains(@id, 'headlessui-popover-panel-:r')]"
     );
     await expect(pronounsOption).toHaveText([
       "Select\nHe/him\nShe/her\nThey/them",
@@ -286,13 +285,217 @@ describe("fora-appium", () => {
     const someLabel = await $("//span[normalize-space()='Address']");
     await someLabel.click();
     await browser.scroll(0, 400);
+  });
+  it("Advisor_Clients_TC014", async () => {
+    //check add another section
+    //check add aother address button
+    const addOtherAddressBtn = await $(
+      '//button[normalize-space()="Add another address"]'
+    );
+    await addOtherAddressBtn.click();
+    //check address section
+    //address name inputBox
+    const addressName = await $$("//label[normalize-space()='Address name']");
+    await expect(addressName).toHaveTextContaining("Address name");
+    const addressNameInputbox = await $$(
+      "//input[@placeholder='Example: Summer house']"
+    );
+    //check inputbox place holder
+    const addressNamePlaceholder = await addressNameInputbox[0].getAttribute(
+      "placeholder"
+    );
+    await expect(addressNamePlaceholder).toEqual("Example: Summer house");
+    await addressNameInputbox[0].setValue("winter House");
+    await addressName[0].click();
 
+    const country = await $$('//input[contains(@id,"addresses")]');
+    await country[0].setValue("asedcw3e23");
+    const noOptions = await $('//div[@class=" css-9x5mqu"]');
+    await expect(noOptions).toHaveText("No options");
+    await country[0].clearValue();
+
+    //country option code is need to be written select united kingdom option
+    // const country_dropdwn = await $("//input[contains(@id,'addresses')]");
+    // await country_dropdwn.click();
+    // await browser.pause(30000);
+    // const usa = await $('//div[@id="react-select-2-option-0"]');
+    // await usa.click();
+    await browser.pause(10000);
+
+    //check address field
+    const address = await $$("//label[normalize-space()='Address']");
+    await expect(address).toHaveText("Address");
+
+    //check address field place holder
+    const addressInputBox = await $$("//input[@id='address']");
+    const addressPlaceHolder = await addressInputBox[0].getAttribute(
+      "placeholder"
+    );
+    await expect(addressPlaceHolder).toEqual("Enter address");
+    await addressInputBox[0].setValue("V Calle 11");
+    await address[0].click();
+
+    //check apt number ,floor
+    const floorlabel = await $$(
+      "//label[normalize-space()='Apt number, suite, floor, etc.']"
+    );
+    await floorlabel[0].isDisplayed();
+    await expect(floorlabel).toHaveText("Apt number, suite, floor, etc.");
+    const floorfieldInput = await $$(
+      "input[placeholder='Enter address'][name='addresses[0].addressAdditional']"
+    );
+    const floorplaceholder = await floorfieldInput[0].getAttribute(
+      "placeholder"
+    );
+    await browser.scroll(0, 400);
+    await expect(floorplaceholder).toEqual("Enter address");
+    await floorfieldInput[0].setValue("12/A");
+    await browser.pause(5000);
+
+    //check city field
+    const cityFieldLabel = await $$("//label[normalize-space()='City']");
+    await cityFieldLabel[0].isDisplayed();
+    await expect(cityFieldLabel[0]).toHaveText("City");
+
+    //check the city field placeholder
+    const cityFieldInput = await $$("//input[@placeholder='Enter city']");
+    const cityFieldPlaceHolder = await cityFieldInput[0].getAttribute(
+      "placeholder"
+    );
+    await expect(cityFieldPlaceHolder).toEqual("Enter city");
+    await cityFieldInput[0].setValue("Dorado");
+    await cityFieldLabel[0].click();
+
+    //CHECK STATE FIELD
+    const stateFieldLabel = await $$("//label[normalize-space()='State']");
+    await expect(stateFieldLabel[0]).toHaveText("State");
+    const stateFieldInput = await $$("//input[@placeholder='Enter state']");
+    const stateFieldplaceholder = await stateFieldInput[0].getAttribute(
+      "placeholder"
+    );
+    await expect(stateFieldplaceholder).toEqual("Enter state");
+    await stateFieldInput[0].setValue("PR");
+    await stateFieldLabel[0].click();
+
+    //CHECK ZIP CODE FIELD
+    const zipcodeFieldLabel = await $$("//label[normalize-space()='Zip code']");
+    await expect(zipcodeFieldLabel[0]).toHaveText("Zip code");
+    const zipcodeFieldInput = await $$("//input[@placeholder='Enter code']");
+    const zipcodeFieldplaceholder = await zipcodeFieldInput[0].getAttribute(
+      "placeholder"
+    );
+    await expect(zipcodeFieldplaceholder).toEqual("Enter code");
+    await zipcodeFieldInput[0].setValue("32435");
+    await zipcodeFieldLabel[0].click();
+    await browser.pause(10000);
+    const removeBtn = await $(
+      '//div[@class="text-error cursor-pointer w-min"]'
+    );
+    const address2 = await $('//span[normalize-space()="Address #2"]');
+    await removeBtn.click();
+    //check the body after clicking remove button
+    address2.waitForDisplayed({ reverse: true });
+    await addOtherAddressBtn.click();
+    //select united states of america country
+    //need code for country selection
+    //check address section
+    //address name inputBox
+    const addressName1 = await $(
+      "(//label[contains(text(),'Address name')])[2]"
+    );
+    await expect(addressName1).toHaveText("Address name");
+
+    //check inputbox place holder
+    const addressNamePlaceholder1 = await addressNameInputbox[1].getAttribute(
+      "placeholder"
+    );
+    await expect(addressNamePlaceholder1).toEqual("Example: Summer house");
+    await addressNameInputbox[1].setValue("winter House");
+    await addressName[1].click();
+
+    await country[1].setValue("asedcw3e23");
+    const noOptions1 = await $("(//div[@class=' css-9x5mqu'])[1]");
+    await expect(noOptions1).toHaveText("No options");
+    await country[1].clearValue();
+
+    //country option code is need to be written select usa option
+    // const country_dropdwn = await $("//input[contains(@id,'addresses')]");
+    // await country_dropdwn.click();
+    // await browser.pause(30000);
+    // const usa = await $('//div[@id="react-select-2-option-0"]');
+    // await usa.click();
+    await browser.pause(10000);
+
+    //check address field
+    await expect(address[1]).toHaveText("Address");
+
+    //check address field place holder
+    const addressPlaceHolder1 = await addressInputBox[1].getAttribute(
+      "placeholder"
+    );
+
+    await expect(addressPlaceHolder1).toEqual("Enter address");
+    await addressInputBox[1].setValue("A");
+    await browser.pause(5000);
+    const addressList = await $('//div[@id="autocomplete-suggestions"]');
+    await addressList.isDisplayed();
+    await addressInputBox[1].setValue("V Calle 11");
+    await address[1].click();
+
+    //check apt number ,floor fields
+
+    await floorlabel[1].isDisplayed();
+    await expect(floorlabel).toHaveText("Apt number, suite, floor, etc.");
+    const floorfieldInput1 = await $(
+      "input[placeholder='Enter address'][name='addresses[1].addressAdditional']"
+    );
+    const floorplaceholder1 = await floorfieldInput1.getAttribute(
+      "placeholder"
+    );
+    await expect(floorplaceholder1).toEqual("Enter address");
+
+    await floorfieldInput1.setValue("12/A");
+    await floorlabel[1].click();
+
+    //check city field
+    await cityFieldLabel[1].isDisplayed();
+    await expect(cityFieldLabel[1]).toHaveText("City");
+
+    //check the city field placeholder
+    const cityFieldPlaceHolder1 = await cityFieldInput[1].getAttribute(
+      "placeholder"
+    );
+    await expect(cityFieldPlaceHolder1).toEqual("Enter city");
+    await cityFieldInput[1].setValue("Dorado");
+    await cityFieldLabel[1].click();
+
+    //CHECK STATE FIELD
+    await expect(stateFieldLabel[1]).toHaveText("State");
+    const stateFieldplaceholder1 = await stateFieldInput[1].getAttribute(
+      "placeholder"
+    );
+    await expect(stateFieldplaceholder1).toEqual("Enter state");
+    await stateFieldInput[1].setValue("PR");
+    await stateFieldLabel[1].click();
+
+    //CHECK ZIP CODE FIELD
+    await expect(zipcodeFieldLabel[1]).toHaveText("Zip code");
+    const zipcodeFieldInput1 = await $('//input[@name="addresses[1].zipCode"]');
+    // const zipcodeFieldplaceholder1 = await zipcodeFieldInput1.getAttribute(
+    //   "placeholder"
+    // );
+    //await expect(zipcodeFieldplaceholder1[1]).toEqual("Enter code");
+    await zipcodeFieldInput[1].setValue("32435");
+    await zipcodeFieldLabel[1].click();
+    await browser.pause(10000);
+
+    //check save button
     const savebtn = await $("//button[@id='agree']");
     await savebtn.isDisplayed();
     await savebtn.click();
-    await browser.pause(20000);
   });
   it("Advisor_Clients_TC016", async () => {
+    await browser.pause(15000);
     //edit the first name and check whether edit functionality is working
     const editLink = await $("//a[normalize-space()='Edit']");
     await editLink.isDisplayed();
@@ -301,9 +504,9 @@ describe("fora-appium", () => {
     await browser.pause("6000");
 
     const firstNameInputBox = await $("//input[@id='firstName']");
-    // await firstNameInputBox.click();
-    // await browser.keys(["Ctrl", "a"]);
-    // await browser.keys(["Backspace"]);
+    await firstNameInputBox.click();
+    await browser.keys(["Control", "a"]);
+    await browser.keys(["Backspace"]);
 
     await firstNameInputBox.setValue("test edit link");
     const some = await $("//label[normalize-space()='Middle name']");
@@ -318,7 +521,7 @@ describe("fora-appium", () => {
 
     await browser.pause("10000");
     const firstNamepreview = await $(
-      "//span[normalize-space()='somethingtest edit link']"
+      "(//span[contains(text(),'test edit link')])"
     );
     await expect(firstNamepreview).toHaveText(/test edit link/);
   });
@@ -326,11 +529,11 @@ describe("fora-appium", () => {
   it("delete client -Advisor_Clients_TC010", async () => {
     await browser.scroll(0, 400);
 
-    const deleteClient = await $(
-      "//div[@class='xl:hidden']//span[contains(@class,'cursor-pointer text-smallLH20 font-bold text-error bg-white rounded border border-lightGreyBorder py-[6px] px-3 hover:bg-lightGreyBg')][normalize-space()='Delete client']"
+    const deleteClient = await $$(
+      "//button[@class='cursor-pointer w-fit text-smallLH20 font-bold text-error bg-white rounded border border-lightGreyBorder py-[6px] px-3 hover:bg-lightGreyBg']"
     );
-    await deleteClient.isDisplayed();
-    await deleteClient.click();
+    await deleteClient[1].isDisplayed();
+    await deleteClient[1].click();
     await browser.pause(10000);
     const confirmDeleteBtn = await $(
       "//button[normalize-space()='Yes, delete client']"
@@ -339,22 +542,32 @@ describe("fora-appium", () => {
     await confirmDeleteBtn.click();
     await browser.pause(10000);
   });
+
+  //need to add the client which has booking
   it("delete client -Advisor_Clients_TC010", async () => {
-    const clientCard = await $(
-      "a[href='/clients/4f1ed997-ab88-46d4-a70f-a6a095608db4']"
+    const clientCards = await $$(
+      '//a[.//span[@class="block text-title font-bold break-all"]]'
     );
-    await clientCard.click();
+
+    // Ensure there's at least one matching element
+    if (clientCards.length > 0) {
+      const lastElement = clientCards[clientCards.length - 1];
+      await lastElement.click();
+    } else {
+      console.log("No matching elements found.");
+    }
+
     await browser.scroll(0, 400);
 
     const deleteClient = await $(
-      "//div[@class='xl:hidden']//span[contains(@class,'cursor-pointer text-smallLH20 font-bold text-error bg-white rounded border border-lightGreyBorder py-[6px] px-3 hover:bg-lightGreyBg')][normalize-space()='Delete client']"
+      '//div[@class="xl:hidden"]//button[@class="cursor-pointer w-fit text-smallLH20 font-bold text-error bg-white rounded border border-lightGreyBorder py-[6px] px-3 hover:bg-lightGreyBg"][normalize-space()="Delete client"]'
     );
     await deleteClient.isDisplayed();
     await deleteClient.click();
     await browser.pause(10000);
     const popupText = await $(
       "div[class='text-medium font-bold text-secondary']"
-    ).getText();
+    );
     expect(popupText).toHaveText(
       "You can't delete a client that has at least one booking assigned to them. You can reassign bookings to different clients on the Bookings page."
     );
