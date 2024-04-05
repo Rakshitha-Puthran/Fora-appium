@@ -1,3 +1,4 @@
+//always use a new account while running the test since it has default condition to check
 describe("Fora advisor portal", () => {
   it("launch fora in chrome", async () => {
     console.log("hello");
@@ -15,7 +16,7 @@ describe("Fora advisor portal", () => {
     await signInButton.click();
     const emailinputField = await $("//input[@id='identifierId']");
     // Type text into the input field
-    await emailinputField.setValue("new.call@forastaging.net");
+    await emailinputField.setValue("automation1711090348057@forastaging.net");
     emailinputField.sendKeyEvent(66);
 
     // Find the input field using the XPath expression
@@ -51,7 +52,7 @@ describe("Fora advisor portal", () => {
       ".block.text-title.font-bold.break-all"
     ).getText();
     //this condition staisfies only when no cliennts are added are the client is not altered
-    expect(clientName).toContain("Testing Software Appium");
+    await expect(clientName).toHaveText([expect.stringContaining(AccountName)]);
   });
   it("clients page Advisor_Clients_TC002", async () => {
     //CHECK ADDRESS SECTION IN CLIENT CARD
@@ -171,12 +172,12 @@ describe("Fora advisor portal", () => {
     ]);
   });
   it("Advisor_Clients_TC005", async () => {
+    //this testcase needs a client with bookings made previously so in bookings modules always create a client name testing and book from the
+    // have a client created with name testing software to change the bookings one client to anaother
     //check booking details
-    const bookingDetails = await $(
-      "div[class='flex xl:hidden p-4 rounded bg-primaryBg justify-between flex-wrap gap-4']"
-    );
+    const bookingDetails = await $('//div[@class="py-4 px-6 md:py-6 md:px-8"]');
     expect(bookingDetails).toHaveText([
-      "Bookings",
+      "Total Bookings",
       "Commissionable Value",
       "Commissions",
     ]);
@@ -231,10 +232,17 @@ describe("Fora advisor portal", () => {
     expect(roundedCommissionablenum).toEqual(roundedCommission);
   });
   it("Advisor_Clients_TC006", async () => {
-    const clientCard = await $(
-      "body > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > main:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(1)"
+    const clientCards = await $$(
+      '//a[.//span[@class="block text-title font-bold break-all"]]'
     );
-    await clientCard.click();
+
+    // Ensure there's at least one matching element
+    if (clientCards.length > 0) {
+      const lastElement = clientCards[clientCards.length - 1];
+      await lastElement.click();
+    } else {
+      console.log("No matching elements found.");
+    }
     const editButton = await $(
       "//div[@class='ml-auto']//span[@class='text-medium font-bold cursor-pointer text-link hover:underline'][normalize-space()='Edit']"
     );

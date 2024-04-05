@@ -17,25 +17,24 @@ describe("fora-homepgae", () => {
     await signInButton.click();
     const emailinputField = await $("//input[@id='identifierId']");
     // Type text into the input field
-    await emailinputField.setValue("automation1708673541367@forastaging.net");
+    await emailinputField.setValue("regression.test22@forastaging.net");
     emailinputField.sendKeyEvent(66);
+    await browser.pause(10000); // pause for 10 seconds
 
     // Find the input field using the XPath expression
-    const nextButton = await $(
-      ".VfPpkd-LgbsSe.VfPpkd-LgbsSe-OWXEXe-k8QpJ.VfPpkd-LgbsSe-OWXEXe-dgl2Hf.nCP5yc.AjY5Oe.DuMIQc.LQeN7.qIypjc.TrZEUc.lw1w4b"
-    );
+    const nextButton = await $("//span[normalize-space()='Next']");
     await nextButton.click();
+    await browser.pause(10000); // pause for 10 seconds
 
     const password = await $("//input[@name='Passwd']");
     await password.setValue("Qaoncloud@01");
     await nextButton.click();
-    const continueBtn = await $(
-      "//body[1]/div[1]/div[1]/div[2]/div[1]/c-wiz[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/button[1]"
-    );
+    await browser.pause(5000);
+    const continueBtn = await $("//span[normalize-space()='Continue']");
     await continueBtn.click();
     await browser.pause(10000); // pause for 10 seconds
   });
-  it("Validate schedule advisor kickoff", async () => {
+  it("Advisor_Home_TC002-Validate schedule advisor kickoff", async () => {
     //check the title and sub heading
     const title = await $("//div[@class='flex items-center gap-2']");
     await expect(title).toHaveText("Schedule an Advisor kickoff call");
@@ -67,39 +66,8 @@ describe("fora-homepgae", () => {
     await dropdown.click();
     browser.pause(5000);
   });
-  it("Validate schedule advisor kickoff", async () => {
-    //check the title and sub heading
-    const title = await $("//div[@class='flex items-center gap-2']");
-    await expect(title).toHaveText("Schedule an Advisor kickoff call");
-
-    const subheading = await $("//p[@class='text-secondary mt-2']");
-    await expect(subheading).toHaveText(
-      "Highly recommended 45-minute session. Connect with other new advisors and learn the essentials to getting started."
-    );
-
-    const advisorKickoff = await $(
-      "//body/div[@id='__next']/div[@class='jsx-c8ce0ad902ae85f4 min-h-screen']/div[@id='main-container']/main[@class='jsx-c8ce0ad902ae85f4 flex-1']/div[@class='jsx-c8ce0ad902ae85f4 p-6 md:py-12 md:px-16']/div[@class='container-1440']/div[@class='max-w-']/div[@id='calendly-container']/div[1]"
-    );
-    await advisorKickoff.isDisplayed();
-
-    //dropdown button
-    const dropdown = await $(
-      "//div[@class='flex items-center gap-2']//*[name()='svg']"
-    );
-    await dropdown.isDisplayed();
-
-    await dropdown.click();
-    // Wait for the advisorKickoff element to become invisible
-    await browser.waitUntil(async () => !(await advisorKickoff.isDisplayed()), {
-      timeout: 5000,
-      timeoutMsg:
-        "advisorKickoff element did not become invisible after clicking dropdown",
-    });
-
-    await dropdown.click();
-    browser.pause(5000);
-  });
-  it("schedule a call ", async () => {
+  it("schedule a call and check the homepgae after scheduling a call  ", async () => {
+    //in order to check  the homepgae after scheduling a call need to schedule a call and check
     await browser.waitUntil(
       async () => {
         const iframe = await browser.$(
@@ -162,7 +130,7 @@ describe("fora-homepgae", () => {
 
     //heading after scheduling a call
     const postSchedulingTitle = await $(
-      "//h2[contains(text(), 'You are scheduled for an Advisor kickoff call')]"
+      '//h2[normalize-space()="You are scheduled for an Advisor kickoff call"]'
     );
     await $(postSchedulingTitle).toHaveText(
       "You are scheduled for an Advisor kickoff call"
