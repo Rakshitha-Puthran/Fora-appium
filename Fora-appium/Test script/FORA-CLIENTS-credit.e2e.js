@@ -1,5 +1,4 @@
 const assert = require("assert");
-const { brotliCompress } = require("zlib");
 //here we are checking the add credit card section after enabling 2 factor authenticatipon for ann account
 
 describe("Fora clients credit card", () => {
@@ -326,98 +325,117 @@ describe("Fora clients credit card", () => {
       "placeholder"
     );
     await expect(addressPlaceHolder).toEqual("Enter address");
-    await addressInputBox.setValue("a");
-    await addressInputBox.clearValue();
-    //check the suggestion list
-    const suggestionList = await $('//div[@id="autocomplete-suggestions"]');
-    await suggestionList.isDisplayed();
-    await browser.pause(20000);
+    await addressInputBox.setValue("V Calle 11");
+    await browser.pause(10000);
+    const suggestion = await $(
+      '//div[normalize-space()="V Calle 11 Dorado, PR 00646"]'
+    );
+    await suggestion.click();
+    await address.click();
+    // await expect(addressPlaceHolder).toEqual("Enter address");
+    // await addressInputBox.setValue("a");
+    // await addressInputBox.clearValue();
+    // //check the suggestion list
+    // const suggestionList = await $('//div[@id="autocomplete-suggestions"]');
+    // await suggestionList.isDisplayed();
+    // await browser.pause(20000);
 
-    // Execute JavaScript to click on the element
-    await browser.execute(() => {
-      // Find the element using JavaScript selector
-      const element = document.querySelector(
-        ".Suggestion_autocomplete--suggestion__9w7xm"
-      );
-      // Perform click
-      element.click();
-    });
+    // // Execute JavaScript to click on the element
+    // await browser.execute(() => {
+    //   // Find the element using JavaScript selector
+    //   const element = document.querySelector(
+    //     ".Suggestion_autocomplete--suggestion__9w7xm"
+    //   );
+    //   // Perform click
+    //   element.click();
+    // });
 
     //check apt number ,floor
     const floorlabel = await $(
       "//label[normalize-space()='Apt number, suite, floor, etc.']"
     );
-    await floorlabel.isDisplayed();
+    await floorlabel.click();
     await expect(floorlabel).toHaveText("Apt number, suite, floor, etc.");
-    const floorfieldInput = await $(
-      "input[placeholder='Enter address'][name='addresses[0].addressAdditional']"
+    const floorfieldInput = await $('//input[@id="address_additional"]');
+
+    //check the place holder
+    const floorplaceholder = await floorfieldInput.getAttribute("placeholder");
+    await expect(floorplaceholder).toEqual("Enter apt");
+    await floorfieldInput.setValue("12/A");
+    await floorlabel.click();
+
+    //check city field
+    const cityFieldLabel = await $("//label[normalize-space()='City']");
+    await cityFieldLabel.isDisplayed();
+    await expect(cityFieldLabel).toHaveText("City");
+
+    //check the city field placeholder
+    const cityFieldInput = await $("//input[@placeholder='Enter city']");
+    const cityFieldPlaceHolder = await cityFieldInput.getAttribute(
+      "placeholder"
+    );
+    //check the validation message
+    await cityFieldInput.click();
+    await cityFieldLabel.click();
+    await expect(validation).toHaveText("This field is required.");
+    //check the paceholder
+    await expect(cityFieldPlaceHolder).toEqual("Enter city");
+    await cityFieldInput.setValue("Dorado");
+    await cityFieldLabel.click();
+
+    //CHECK STATE FIELD
+    const stateFieldLabel = await $("//label[normalize-space()='State']");
+    await expect(stateFieldLabel).toHaveText("State");
+    const stateFieldInput = await $("//input[@placeholder='Enter state']");
+    //check the validation message
+    await stateFieldInput.click();
+    await stateFieldLabel.click();
+    await expect(validation).toHaveText("This field is required.");
+    //check the place holder
+    const stateFieldplaceholder = await stateFieldInput.getAttribute(
+      "placeholder"
+    );
+    await expect(stateFieldplaceholder).toEqual("Enter state");
+    await stateFieldInput.setValue("PR");
+    await stateFieldLabel.click();
+
+    //CHECK ZIP CODE FIELD
+    const zipcodeFieldLabel = await $(
+      '//label[normalize-space()="Zip code (postcode)"]'
+    );
+    await expect(zipcodeFieldLabel).toHaveText("Zip code (postcode)");
+    const zipcodeFieldInput = await $('//input[@id="postal_code"]');
+
+    //check the place holder
+    const zipcodeFieldplaceholder = await zipcodeFieldInput.getAttribute(
+      "placeholder"
+    );
+    await expect(zipcodeFieldplaceholder).toEqual("Enter code");
+    await zipcodeFieldInput.setValue("32435");
+    await zipcodeFieldLabel.click();
+    await browser.scroll(0, 200);
+    //check save button
+    const savebtn = await $('//button[@id="btnSubmit"]');
+    await savebtn.click();
+
+    await browser.pause(10000);
+    //check sucess text
+    const successTxt = await $(
+      '//div[@class="text-medium font-bold text-secondary"]'
     );
 
-    // //check the place holder
-    // const floorplaceholder = await floorfieldInput.getAttribute("placeholder");
-    // await expect(floorplaceholder).toEqual("Enter address");
-    // await floorfieldInput.setValue("12/A");
-    // await floorlabel.click();
+    await expect(successTxt).toHaveText(
+      "Your card is securely added to the credit card section"
+    );
 
-    // //check city field
-    // const cityFieldLabel = await $("//label[normalize-space()='City']");
-    // await cityFieldLabel.isDisplayed();
-    // await expect(cityFieldLabel).toHaveText("City");
-
-    // //check the city field placeholder
-    // const cityFieldInput = await $("//input[@placeholder='Enter city']");
-    // const cityFieldPlaceHolder = await cityFieldInput.getAttribute(
-    //   "placeholder"
-    // );
-    // //check the validation message
-    // await cityFieldInput.click();
-    // await cityFieldLabel.click();
-    // await expect(validation).toHaveText("This field is required.");
-    // //check the paceholder
-    // await expect(cityFieldPlaceHolder).toEqual("Enter city");
-    // await cityFieldInput.setValue("Dorado");
-    // await cityFieldLabel.click();
-
-    // //CHECK STATE FIELD
-    // const stateFieldLabel = await $("//label[normalize-space()='State']");
-    // await expect(stateFieldLabel).toHaveText("State");
-    // const stateFieldInput = await $("//input[@placeholder='Enter state']");
-    // //check the validation message
-    // await stateFieldInput.click();
-    // await stateFieldLabel.click();
-    // await expect(validation).toHaveText("This field is required.");
-    // //check the place holder
-    // const stateFieldplaceholder = await stateFieldInput.getAttribute(
-    //   "placeholder"
-    // );
-    // await expect(stateFieldplaceholder).toEqual("Enter state");
-    // await stateFieldInput.setValue("PR");
-    // await stateFieldLabel.click();
-
-    // //CHECK ZIP CODE FIELD
-    // const zipcodeFieldLabel = await $("//label[normalize-space()='Zip code']");
-    // await expect(zipcodeFieldLabel).toHaveText("Zip code");
-    // const zipcodeFieldInput = await $("//input[@placeholder='Enter code']");
-    // //check the validation message
-    // await zipcodeFieldInput.click();
-    // await zipcodeFieldLabel.click();
-    // await expect(validation).toHaveText("This field is required.");
-    // //check the place holder
-    // const zipcodeFieldplaceholder = await zipcodeFieldInput.getAttribute(
-    //   "placeholder"
-    // );
-    // await expect(zipcodeFieldplaceholder).toEqual("Enter code");
-    // await zipcodeFieldInput.setValue("32435");
-    // await zipcodeFieldLabel.click();
-
-    //check save button
-    const savebtn = await $("//button[@id='agree']");
-    await savebtn.isDisplayed();
-    await savebtn.click();
+    //check ok got it button
+    const gotIt = await $('//button[normalize-space()="Got it"]');
+    await gotIt.click();
   });
   it("Advisor_Clients_TC008 ", async () => {
     //check edit card details
-    browser.pause("10000");
+    await browser.pause("10000");
+    await browser.scroll(0, -400);
     //checl the reveal btn
     const revealbtn = await $('//button[normalize-space()="Reveal"]');
     await revealbtn.isDisplayed();

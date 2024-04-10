@@ -56,227 +56,227 @@ describe("fora-appium", () => {
     );
     await goBackBtn.isDisplayed();
 
-    // //check the available name fields
-    // const childElements = await $$(".flex.flex-col.gap-6");
-    // const labels = await childElements[0].$$("label");
-    // // Define the text fields to check for
-    // const textFields = [
-    //   "Prefix",
-    //   "First name *",
-    //   "Middle name",
-    //   "Last name *",
-    //   "Suffix",
-    //   "Preferred names",
-    //   "Pronouns",
-    // ];
+    //check the available name fields
+    const childElements = await $$(".flex.flex-col.gap-6");
+    const labels = await childElements[0].$$("label");
+    // Define the text fields to check for
+    const textFields = [
+      "Prefix",
+      "First name *",
+      "Middle name",
+      "Last name *",
+      "Suffix",
+      "Preferred names",
+      "Pronouns",
+    ];
 
-    // // Iterate over each child element to check its text content
-    // for (const label of labels) {
-    //   const textContent = await label.getText();
-    //   // Check if each text field is included in the text content
-    //   textFields.forEach((field) => {
-    //     expect(textContent).toHaveText(field);
-    //   });
-    // }
-    // //check prefix field
-    // const prefix = await $('[data-testid="dropdownButton"]');
-    // await prefix.isDisplayed();
-    // await prefix.click();
-    // await browser.pause(5000);
+    // Iterate over each child element to check its text content
+    for (const label of labels) {
+      const textContent = await label.getText();
+      // Check if each text field is included in the text content
+      textFields.forEach((field) => {
+        expect(textContent).toHaveText(field);
+      });
+    }
+    //check prefix field
+    const prefix = await $('[data-testid="dropdownButton"]');
+    await prefix.isDisplayed();
+    await prefix.click();
+    await browser.pause(5000);
 
-    // const prefixOptions = await $(
-    //   "body > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > main:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1)"
-    // );
-    // const expectedOptions = "Select\nMrs\nMiss\nMs\nMr\nDr";
+    const prefixOptions = await $(
+      "body > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > main:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1)"
+    );
+    const expectedOptions = "Select\nMrs\nMiss\nMs\nMr\nDr";
 
-    // await expect(prefixOptions).toHaveText(expectedOptions);
+    await expect(prefixOptions).toHaveText(expectedOptions);
 
-    // const prefixMrOption = await $("//div[@id='prefix-option-4']");
-    // await prefixMrOption.click();
-    // //check each name section fields
-    // //first name inputbox:
-    // const firstNameInputBox = await $("//input[@id='firstName']");
-    // const firstNameInputBoxTxt = await firstNameInputBox.getAttribute(
-    //   "placeholder"
-    // );
-    // await expect(firstNameInputBoxTxt).toEqual("Enter name*");
+    const prefixMrOption = await $("//div[@id='prefix-option-4']");
+    await prefixMrOption.click();
+    //check each name section fields
+    //first name inputbox:
+    const firstNameInputBox = await $("//input[@id='firstName']");
+    const firstNameInputBoxTxt = await firstNameInputBox.getAttribute(
+      "placeholder"
+    );
+    await expect(firstNameInputBoxTxt).toEqual("Enter name*");
 
-    // //check validation message of firstname field
-    // await firstNameInputBox.click();
-    // const something = await $("//span[normalize-space()='Name']");
-    // await something.click();
-    // const firstNameValidation = await $(
-    //   "div.my-1.text-medium.text-error.items-start.whitespace-pre-wrap.flex"
-    // );
-    // await expect(firstNameValidation).toHaveText("First name is required");
+    //check validation message of firstname field
+    await firstNameInputBox.click();
+    const something = await $("//span[normalize-space()='Name']");
+    await something.click();
+    const firstNameValidation = await $(
+      "div.my-1.text-medium.text-error.items-start.whitespace-pre-wrap.flex"
+    );
+    await expect(firstNameValidation).toHaveText("First name is required");
 
-    // //enter first name values
-    // const firstName = await $("//input[@id='firstName']");
-    // await firstName.setValue("something");
-    // //check validation message after entering values
-    // await firstNameValidation.waitForDisplayed({ reverse: true });
+    //enter first name values
+    const firstName = await $("//input[@id='firstName']");
+    await firstName.setValue("something");
+    //check validation message after entering values
+    await firstNameValidation.waitForDisplayed({ reverse: true });
 
-    // //check middle name section
-    // const middleName = await $("//input[@id='middleName']");
-    // const middleNamePlaceholder = await middleName.getAttribute("placeholder");
-    // await expect(middleNamePlaceholder).toEqual("Enter name");
-    // await middleName.setValue("new");
-    // const something1 = await $("//label[normalize-space()='Last name *']"); //check lastname validation message
-    // await something1.click();
+    //check middle name section
+    const middleName = await $("//input[@id='middleName']");
+    const middleNamePlaceholder = await middleName.getAttribute("placeholder");
+    await expect(middleNamePlaceholder).toEqual("Enter name");
+    await middleName.setValue("new");
+    const something1 = await $("//label[normalize-space()='Last name *']"); //check lastname validation message
+    await something1.click();
 
-    // await browser.pause("5000");
-    // //check last name field
-    // const LastName = await $("//input[@id='lastName']");
-    // const lastNamePlaceholder = await LastName.getAttribute("placeholder");
-    // await expect(lastNamePlaceholder).toEqual("Enter name*");
-    // await browser.scroll(0, 200);
-    // await LastName.click();
-    // await something1.click();
-    // const lastNameValidation = await $(
-    //   "//div[contains(text(),'Last name is required')]"
-    // );
-    // await expect(lastNameValidation).toHaveText("Last name is required");
-    // await LastName.setValue("client");
-    // await lastNameValidation.waitForDisplayed({ reverse: true });
+    await browser.pause("5000");
+    //check last name field
+    const LastName = await $("//input[@id='lastName']");
+    const lastNamePlaceholder = await LastName.getAttribute("placeholder");
+    await expect(lastNamePlaceholder).toEqual("Enter name*");
+    await browser.scroll(0, 200);
+    await LastName.click();
+    await something1.click();
+    const lastNameValidation = await $(
+      "//div[contains(text(),'Last name is required')]"
+    );
+    await expect(lastNameValidation).toHaveText("Last name is required");
+    await LastName.setValue("client");
+    await lastNameValidation.waitForDisplayed({ reverse: true });
 
-    // //check suffix field
-    // const SuffixField = await $("//input[@id='suffix']");
-    // await SuffixField.setValue("testing");
-    // //check preffered names field
-    // const prefferedNames = await $("//input[@id='preferredName']");
-    // const preferredNamePlaceholder = await prefferedNames.getAttribute(
-    //   "placeholder"
-    // );
-    // await expect(preferredNamePlaceholder).toEqual("Enter name");
-    // await prefferedNames.setValue("appium testing");
-    // const something2 = await $("//label[normalize-space()='Pronouns']");
-    // await something2.click();
+    //check suffix field
+    const SuffixField = await $("//input[@id='suffix']");
+    await SuffixField.setValue("testing");
+    //check preffered names field
+    const prefferedNames = await $("//input[@id='preferredName']");
+    const preferredNamePlaceholder = await prefferedNames.getAttribute(
+      "placeholder"
+    );
+    await expect(preferredNamePlaceholder).toEqual("Enter name");
+    await prefferedNames.setValue("appium testing");
+    const something2 = await $("//label[normalize-space()='Pronouns']");
+    await something2.click();
 
-    // //check pronouns field
-    // const pronouns = await $$("button[data-testid='dropdownButton']");
-    // await pronouns[1].click();
-    // await browser.pause(5000);
-    // const pronounsOption = await $$(
-    //   "//*[contains(@id, 'headlessui-popover-panel-:r')]"
-    // );
-    // await expect(pronounsOption).toHaveText([
-    //   "Select\nHe/him\nShe/her\nThey/them",
-    // ]);
-    // const pronounsOption1 = await $("//div[@id='pronouns-option-1']");
-    // await pronounsOption1.click();
-    // //check email section
-    // const emailSection = await $(
-    //   "//body/div/div/div/main/div/div/div/div/form[@action='#']/div[2]"
-    // );
-    // await emailSection.isDisplayed();
-    // //check phone number section
-    // const phoneNumberSection = await $(
-    //   "//body/div/div/div/main/div/div/div/div/form[@action='#']/div[3]"
-    // );
-    // await phoneNumberSection.isDisplayed();
-    // //check cancel button
-    // const cancelBtn = await $("//a[normalize-space()='Cancel']");
-    // await cancelBtn.isDisplayed();
-    // await browser.pause(20000);
+    //check pronouns field
+    const pronouns = await $$("button[data-testid='dropdownButton']");
+    await pronouns[1].click();
+    await browser.pause(5000);
+    const pronounsOption = await $$(
+      "//*[contains(@id, 'headlessui-popover-panel-:r')]"
+    );
+    await expect(pronounsOption).toHaveText([
+      "Select\nHe/him\nShe/her\nThey/them",
+    ]);
+    const pronounsOption1 = await $("//div[@id='pronouns-option-1']");
+    await pronounsOption1.click();
+    //check email section
+    const emailSection = await $(
+      "//body/div/div/div/main/div/div/div/div/form[@action='#']/div[2]"
+    );
+    await emailSection.isDisplayed();
+    //check phone number section
+    const phoneNumberSection = await $(
+      "//body/div/div/div/main/div/div/div/div/form[@action='#']/div[3]"
+    );
+    await phoneNumberSection.isDisplayed();
+    //check cancel button
+    const cancelBtn = await $("//a[normalize-space()='Cancel']");
+    await cancelBtn.isDisplayed();
+    await browser.pause(20000);
   });
   it("Advisor_clients_TC012", async () => {
-    // await browser.scroll(0, 400);
-    // //check email section
-    // const emailSection = await $(
-    //   "//body/div/div/div/main/div/div/div/div/form[@action='#']/div[2]"
-    // );
-    // await emailSection.isDisplayed();
-    // await expect(emailSection).toHaveText([
-    //   "Email\nPersonal email\nWork email\nOther email",
-    // ]);
-    // //check personal emial field
-    // const personalEmailField = await $("//input[@id='personal']");
-    // const personalEmailPlaceholder = await personalEmailField.getAttribute(
-    //   "placeholder"
-    // );
-    // expect(personalEmailPlaceholder).toHaveText("Enter email");
-    // await personalEmailField.setValue(" ");
-    // const validationMessage = await $(
-    //   "//div[@class='my-1 text-medium text-error items-start whitespace-pre-wrap flex']"
-    // );
-    // const something = await $("//label[normalize-space()='Personal email']");
-    // await something.click();
-    // await expect(validationMessage).toHaveText("Please enter valid email");
-    // await personalEmailField.setValue("something@gmail.com");
-    // await something.click();
-    // //check work email field
-    // const workEmailField = await $("//input[@id='work']");
-    // await workEmailField.setValue(" ");
-    // await something.click();
-    // await expect(validationMessage).toHaveText("Please enter valid email");
-    // await workEmailField.setValue("some@gmail.com");
-    // await something.click();
-    // //check other email field
-    // const otherEmailField = await $("//input[@id='other']");
-    // await otherEmailField.setValue("  ");
-    // const so = await $("//label[normalize-space()='Other email']");
-    // await so.click();
-    // await expect(validationMessage).toHaveText("Please enter valid email");
-    // await otherEmailField.setValue("ss@gmail.com");
-    // const otheremailLabel = await $("//label[normalize-space()='Other email']");
-    // await otheremailLabel.click();
-    // await browser.scroll(0, 400);
-    // await browser.pause(5000);
+    await browser.scroll(0, 400);
+    //check email section
+    const emailSection = await $(
+      "//body/div/div/div/main/div/div/div/div/form[@action='#']/div[2]"
+    );
+    await emailSection.isDisplayed();
+    await expect(emailSection).toHaveText([
+      "Email\nPersonal email\nWork email\nOther email",
+    ]);
+    //check personal emial field
+    const personalEmailField = await $("//input[@id='personal']");
+    const personalEmailPlaceholder = await personalEmailField.getAttribute(
+      "placeholder"
+    );
+    expect(personalEmailPlaceholder).toHaveText("Enter email");
+    await personalEmailField.setValue(" ");
+    const validationMessage = await $(
+      "//div[@class='my-1 text-medium text-error items-start whitespace-pre-wrap flex']"
+    );
+    const something = await $("//label[normalize-space()='Personal email']");
+    await something.click();
+    await expect(validationMessage).toHaveText("Please enter valid email");
+    await personalEmailField.setValue("something@gmail.com");
+    await something.click();
+    //check work email field
+    const workEmailField = await $("//input[@id='work']");
+    await workEmailField.setValue(" ");
+    await something.click();
+    await expect(validationMessage).toHaveText("Please enter valid email");
+    await workEmailField.setValue("some@gmail.com");
+    await something.click();
+    //check other email field
+    const otherEmailField = await $("//input[@id='other']");
+    await otherEmailField.setValue("  ");
+    const so = await $("//label[normalize-space()='Other email']");
+    await so.click();
+    await expect(validationMessage).toHaveText("Please enter valid email");
+    await otherEmailField.setValue("ss@gmail.com");
+    const otheremailLabel = await $("//label[normalize-space()='Other email']");
+    await otheremailLabel.click();
+    await browser.scroll(0, 400);
+    await browser.pause(5000);
   });
   it("Advisor_Clients_TC013", async () => {
-    // //check whether all the fields are available in phone number section
-    // const phoneNumberSection = await $(
-    //   "//body/div/div/div/main/div/div/div/div/form[@action='#']/div[3]"
-    // );
-    // await phoneNumberSection.isDisplayed();
-    // const mobilePhone = await $("//label[normalize-space()='Mobile phone']");
-    // await expect(mobilePhone).toHaveText("Mobile phone");
-    // const homePhone = await $("//label[normalize-space()='Home phone']");
-    // await expect(homePhone).toHaveText("Home phone");
-    // const workPhone = await $("//label[normalize-space()='Work phone']");
-    // await expect(workPhone).toHaveText("Work phone");
-    // const otherPhone = await $("//label[normalize-space()='Other phone']");
-    // await expect(otherPhone).toHaveText("Other phone");
-    // async function testMobilePhoneFunctionality(i) {
-    //   //check select country in mobile phone field
-    //   const selectCountry = await $$("select[class='PhoneInputCountrySelect']");
-    //   await selectCountry[i].isDisplayed();
-    //   const mobilePhoneInput = await $$("input[id^='phoneInput']");
-    //   await mobilePhoneInput[i].isDisplayed();
-    //   //check whether default value is usa +1
-    //   const mobilePhoneInputValue = await mobilePhoneInput[i].getAttribute(
-    //     "value"
-    //   );
-    //   await expect(mobilePhoneInputValue).toEqual("+1");
-    //   //check whether the country code is displayed while selecting country
-    //   await selectCountry[i].selectByAttribute("value", "AF");
-    //   const mobilePhoneInputValue1 = await mobilePhoneInput[i].getAttribute(
-    //     "value"
-    //   );
-    //   await expect(mobilePhoneInputValue1).toEqual("+93");
-    //   await mobilePhoneInput[i].click();
-    //   await browser.keys(["Ctrl", "a"]);
-    //   await browser.keys(["Backspace"]);
-    //   //check whether country flag is displayed while entering country code
-    //   // Example of pressing the delete key three times
-    //   await mobilePhoneInput[i].setValue("+91");
-    //   await mobilePhone.click();
-    //   await selectCountry[i].isDisplayed();
-    //   //check validation
-    //   const validation = await $("//p[@class='text-medium text-error']");
-    //   await expect(validation).toHaveText([
-    //     "Please, enter a valid phone number",
-    //   ]);
-    //   await mobilePhoneInput[i].setValue("8248339108");
-    //   await browser.pause(10000);
-    // }
-    // // Call the function
-    // await testMobilePhoneFunctionality(0);
-    // await testMobilePhoneFunctionality(1);
-    // await testMobilePhoneFunctionality(2);
-    // const someLabel = await $("//span[normalize-space()='Address']");
-    // await someLabel.click();
-    // await browser.scroll(0, 400);
+    //check whether all the fields are available in phone number section
+    const phoneNumberSection = await $(
+      "//body/div/div/div/main/div/div/div/div/form[@action='#']/div[3]"
+    );
+    await phoneNumberSection.isDisplayed();
+    const mobilePhone = await $("//label[normalize-space()='Mobile phone']");
+    await expect(mobilePhone).toHaveText("Mobile phone");
+    const homePhone = await $("//label[normalize-space()='Home phone']");
+    await expect(homePhone).toHaveText("Home phone");
+    const workPhone = await $("//label[normalize-space()='Work phone']");
+    await expect(workPhone).toHaveText("Work phone");
+    const otherPhone = await $("//label[normalize-space()='Other phone']");
+    await expect(otherPhone).toHaveText("Other phone");
+    async function testMobilePhoneFunctionality(i) {
+      //check select country in mobile phone field
+      const selectCountry = await $$("select[class='PhoneInputCountrySelect']");
+      await selectCountry[i].isDisplayed();
+      const mobilePhoneInput = await $$("input[id^='phoneInput']");
+      await mobilePhoneInput[i].isDisplayed();
+      //check whether default value is usa +1
+      const mobilePhoneInputValue = await mobilePhoneInput[i].getAttribute(
+        "value"
+      );
+      await expect(mobilePhoneInputValue).toEqual("+1");
+      //check whether the country code is displayed while selecting country
+      await selectCountry[i].selectByAttribute("value", "AF");
+      const mobilePhoneInputValue1 = await mobilePhoneInput[i].getAttribute(
+        "value"
+      );
+      await expect(mobilePhoneInputValue1).toEqual("+93");
+      await mobilePhoneInput[i].click();
+      await browser.keys(["Ctrl", "a"]);
+      await browser.keys(["Backspace"]);
+      //check whether country flag is displayed while entering country code
+      // Example of pressing the delete key three times
+      await mobilePhoneInput[i].setValue("+91");
+      await mobilePhone.click();
+      await selectCountry[i].isDisplayed();
+      //check validation
+      const validation = await $("//p[@class='text-medium text-error']");
+      await expect(validation).toHaveText([
+        "Please, enter a valid phone number",
+      ]);
+      await mobilePhoneInput[i].setValue("8248339108");
+      await browser.pause(10000);
+    }
+    // Call the function
+    await testMobilePhoneFunctionality(0);
+    await testMobilePhoneFunctionality(1);
+    await testMobilePhoneFunctionality(2);
+    const someLabel = await $("//span[normalize-space()='Address']");
+    await someLabel.click();
+    await browser.scroll(0, 400);
   });
   it("Advisor_Clients_TC014", async () => {
     //check add another section
@@ -486,7 +486,7 @@ describe("fora-appium", () => {
     await savebtn.isDisplayed();
     await savebtn.click();
   });
-  it.skip("Advisor_Clients_TC016", async () => {
+  it("Advisor_Clients_TC016", async () => {
     await browser.pause(15000);
     //edit the first name and check whether edit functionality is working
     const editLink = await $("//a[normalize-space()='Edit']");
@@ -518,7 +518,7 @@ describe("fora-appium", () => {
     await expect(firstNamepreview).toHaveText(/test edit link/);
   });
 
-  it.skip("delete client -Advisor_Clients_TC010", async () => {
+  it("delete client -Advisor_Clients_TC010", async () => {
     await browser.scroll(0, 400);
 
     const deleteClient = await $$(
@@ -536,7 +536,8 @@ describe("fora-appium", () => {
   });
 
   //need to add the client which has booking
-  it.skip("delete client -Advisor_Clients_TC010", async () => {
+  //to over come this intergrate this script with bookings script and try to make a booking with default client account
+  it("delete client -Advisor_Clients_TC010", async () => {
     const clientCards = await $$(
       '//a[.//span[@class="block text-title font-bold break-all"]]'
     );
